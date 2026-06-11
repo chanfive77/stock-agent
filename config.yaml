@@ -1,0 +1,38 @@
+# 주식 분석 에이전트 설정 (비밀이 아닌 값)
+
+market:
+  # 분석 대상 시장: KOSPI, KOSDAQ, ALL
+  universe: "ALL"
+  # 섹터/종목 후보 산정 시 사용할 시가총액 상위 N 종목
+  top_n_by_marketcap: 300
+  # 일봉 조회 기간(일)
+  lookback_days: 200
+
+recommend:
+  # 추천 섹터 수
+  num_sectors: 3
+  # 섹터별 추천 종목 수
+  stocks_per_sector: 3
+
+schedule:
+  # 매일 실행 시각 (KST, 24h). 장 마감 후 16:00
+  run_at: "16:00"
+  timezone: "Asia/Seoul"
+  # 주말/공휴일(거래일 아님)에는 건너뜀
+  skip_non_trading_days: true
+
+llm:
+  # 정성 분석/리포트 문장 생성에 LLM 사용
+  enabled: true
+  temperature: 0.3
+
+report:
+  # 종목 차트 이미지 포함 여부
+  include_charts: true
+  # 출력 디렉터리
+  output_dir: "output"
+
+mail:
+  subject_prefix: "[데일리 주식 리포트]"
+  # 종목별 리포트를 첨부(attach) 또는 본문 인라인(inline)
+  delivery: "inline"
