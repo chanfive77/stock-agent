@@ -78,6 +78,13 @@ class Config:
         return p
 
 
+def _clean_app_password(raw: str | None) -> str | None:
+    # Gmail 앱 비밀번호는 4자리씩 공백 구분되어 표시되므로 공백 제거
+    if not raw:
+        return None
+    return "".join(raw.split())
+
+
 def _split_recipients(raw: str | None) -> list[str]:
     if not raw:
         return []
@@ -109,7 +116,7 @@ def load_config(path: str | Path | None = None) -> Config:
         subject_prefix=mail_data.get("subject_prefix", "[데일리 주식 리포트]"),
         delivery=mail_data.get("delivery", "inline"),
         gmail_address=os.getenv("GMAIL_ADDRESS"),
-        gmail_app_password=os.getenv("GMAIL_APP_PASSWORD"),
+        gmail_app_password=_clean_app_password(os.getenv("GMAIL_APP_PASSWORD")),
         recipients=_split_recipients(os.getenv("MAIL_RECIPIENTS")),
     )
 
