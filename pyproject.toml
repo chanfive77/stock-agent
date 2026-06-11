@@ -1,0 +1,46 @@
+[project]
+name = "stock-agent"
+version = "0.1.0"
+description = "매일 국내 주식 단기/중기 시황을 분석해 3개 섹터 + 섹터별 3개 종목을 추천하고 종목별 리포트를 메일로 발송하는 멀티 에이전트 시스템"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=0.2.0",
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "finance-datareader>=0.9.90",
+    "pykrx>=1.0.45",
+    "pandas>=2.0.0",
+    "numpy>=1.26.0",
+    "jinja2>=3.1.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "matplotlib>=3.8.0",
+    "tenacity>=8.2.0",
+]
+
+[project.scripts]
+stock-agent = "stock_agent.main:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.6.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stock_agent"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]
